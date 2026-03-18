@@ -136,9 +136,15 @@ def fix_unable_to_perform_state_transition(custom_dir):
     repo_url = "https://github.com/frida/frida-java-bridge.git"
     run_command(f"git clone {repo_url}")
     frida_java_bridge_path = os.path.join(os.getcwd(), "frida-java-bridge")
-    run_command(f"sudo npm remove -g frida-java-bridge", cwd=frida_java_bridge_path)
     run_command(f"npm install", cwd=frida_java_bridge_path)
-    run_command(f"sudo npm link", cwd=frida_java_bridge_path)
+
+    # statt global link → lokal injecten
+    gumjs_runtime_path = os.path.join(
+        custom_dir,
+        "subprojects/frida-gum/bindings/gumjs"
+    )
+
+run_command(f"npm install {frida_java_bridge_path}", cwd=gumjs_runtime_path)
 
     generate_runtime_path = os.path.join(custom_dir, "subprojects/frida-gum/bindings/gumjs/generate-runtime.py")
     replace_strings_in_files(generate_runtime_path,
