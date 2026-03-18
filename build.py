@@ -144,7 +144,7 @@ def fix_unable_to_perform_state_transition(custom_dir):
         "subprojects/frida-gum/bindings/gumjs"
     )
 
-run_command(f"npm install {frida_java_bridge_path}", cwd=gumjs_runtime_path)
+    run_command(f"npm install {frida_java_bridge_path}", cwd=gumjs_runtime_path)
 
     generate_runtime_path = os.path.join(custom_dir, "subprojects/frida-gum/bindings/gumjs/generate-runtime.py")
     replace_strings_in_files(generate_runtime_path,
